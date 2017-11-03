@@ -1,0 +1,1 @@
+To use, clone the repo and open "index.html" in any browser. 
