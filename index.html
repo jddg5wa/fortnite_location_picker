@@ -1,6 +1,6 @@
 <html>
     <head>
-        <script src="javascript.js"></script>
+        <!-- <script src="javascript.js"></script> -->
         <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">
         <link rel="stylesheet" href="style.css" type="text/css">
     </head>
@@ -13,8 +13,32 @@
         </div>
         <div id="mini_map_container">
             <div id="mini_map">
+                    <img id="mini_map_img" src="assets/Asset_4kMap_Fortnite.jpg" alt="map" style="visibility: hidden; max-width: 100%;"></img>
                     <!-- <img id="mini_map_marker" src="assets\asset_locationmarker_fortnite.png" alt="mini_map_marker"></img> -->
             </div>
+            <button class="buttons" id="location_button" type="button" onclick="getRandomLocation()">Get Location</button>
         </div>
     </body>
+    <script>
+
+        function getRandomLocation() {
+            var map = document.getElementById("map");
+            var main_map_dimensions = [map.offsetHeight, map.offsetWidth];
+
+            var map_marker = document.getElementById("map_marker");
+            var map_marker_dimensions = [map_marker.offsetHeight, map_marker.offsetWidth];
+
+            // set marker position
+            var new_marker_position = [ Math.floor(Math.random() * main_map_dimensions[0])-map_marker_dimensions[0]*.5, Math.floor(Math.random() * main_map_dimensions[0])-map_marker_dimensions[1]*.5];
+            map_marker.style.top = new_marker_position[0] + 'px';
+            map_marker.style.left = new_marker_position[1] + 'px';
+
+            //set map offset
+            map.style.top = "-" + new_marker_position[0] + 'px';
+            map.style.left = "-" + new_marker_position[1] + 'px';
+
+            console.log("map size:" + main_map_dimensions);     
+            console.log("marker position:" + new_marker_position);   
+        }
+    </script>
 </html>
