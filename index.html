@@ -34,7 +34,8 @@
             map_marker.style.left = new_marker_position[1] + 'px';
 
             //set map offset
-            var new_map_offset = [ Math.abs(new_marker_position[0]-(screen.height*.3)), Math.abs(new_marker_position[1]-(screen.width*.3))];
+            var random_offset_limit = 60;
+            var new_map_offset = [ Math.abs(new_marker_position[0]-(screen.height*.3)-Math.floor(Math.random()*random_offset_limit)), Math.abs(new_marker_position[1]-(screen.width*.3)-Math.floor(Math.random()*random_offset_limit))];
             if (new_map_offset[0] > main_map_dimensions[0]-screen.height){
                 new_map_offset[0] = main_map_dimensions[0]-screen.height;
             }
