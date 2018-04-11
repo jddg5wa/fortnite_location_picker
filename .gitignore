@@ -1,5 +1,6 @@
 *.ai
 *.psd
+*.db
 reference*.png
 reference*.jpg
 assets/testui/
