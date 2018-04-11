@@ -29,16 +29,28 @@
             var map_marker_dimensions = [map_marker.offsetHeight, map_marker.offsetWidth];
 
             // set marker position
-            var new_marker_position = [ Math.floor(Math.random() * main_map_dimensions[0])-map_marker_dimensions[0]*.5, Math.floor(Math.random() * main_map_dimensions[0])-map_marker_dimensions[1]*.5];
+            var new_marker_position = [ Math.abs(Math.floor(Math.random() * main_map_dimensions[0])-map_marker_dimensions[0]*.5), Math.abs(Math.floor(Math.random() * main_map_dimensions[0])-map_marker_dimensions[1]*.5)];
             map_marker.style.top = new_marker_position[0] + 'px';
             map_marker.style.left = new_marker_position[1] + 'px';
 
             //set map offset
-            map.style.top = "-" + new_marker_position[0] + 'px';
-            map.style.left = "-" + new_marker_position[1] + 'px';
+            var new_map_offset = [ Math.abs(new_marker_position[0]-(screen.height*.3)), Math.abs(new_marker_position[1]-(screen.width*.3))];
+            if (new_map_offset[0] > main_map_dimensions[0]-screen.height){
+                new_map_offset[0] = main_map_dimensions[0]-screen.height;
+            }
 
-            console.log("map size:" + main_map_dimensions);     
-            console.log("marker position:" + new_marker_position);   
+            if (new_map_offset[1] > main_map_dimensions[1]-screen.width){
+                new_map_offset[1] = main_map_dimensions[1]-screen.width;
+            }
+            
+            map.style.top = "-" + new_map_offset[0] + 'px';
+            map.style.left = "-" + new_map_offset[1] + 'px';
+
+            console.log("map size: " + main_map_dimensions);     
+            console.log("marker position: " + new_marker_position);   
+            console.log("map offset: " + new_map_offset);
+            console.log("screen width: " + screen.width + " -- screen height: " + screen.height);
+            console.log("-----------------------------------");
         }
     </script>
 </html>

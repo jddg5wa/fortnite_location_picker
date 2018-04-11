@@ -74,6 +74,8 @@ body {
     right: 0px;
 
     margin: 1vw;
+
+    opacity: 0.75;
 }
 
 #mini_map{
