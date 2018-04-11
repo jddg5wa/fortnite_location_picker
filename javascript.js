@@ -1,18 +1,10 @@
-var locations = ["Anarchy Acres", "Fatal Fields","Flush Factory","Greasy Grove","Lonely Lodge","Loot Lake","Moisty Mire","Pleasant Park","Retail Row","Wailing Woods"];
+var main_map_height = document.getElementById("map").offsetHeight;
+var main_map_width = document.getElementById("map").offsetWidth;
 
-function getRandomLocation(){
-    if (Math.random() < .5) // half the time give a location between two map locations
-    {
-        var randLoc1 = locations[Math.floor(Math.random()* locations.length)];
-        var randLoc2 = locations[Math.floor(Math.random()* locations.length)];
-        while (randLoc1 == randLoc2){
-            var randLoc2 = locations[Math.floor(Math.random()* locations.length)];
-        }
-        document.getElementById('outputText').innerHTML = "inbetween <u>" + randLoc1 + "</u> and <u>" + randLoc2 + "</u>";
-    }
-    else // otherwise give map location
-    {
-        var randLoc = locations[Math.floor(Math.random()* locations.length)];
-        document.getElementById('outputText').innerHTML = "<u>" + randLoc + "</u>";
-    }
-}
+var map_marker_height = document.getElementById("map_marker").offsetHeight;
+var map_marker_width = document.getElementById("map_marker").offsetWidth;
+var marker_position = [ 0, 0];
+
+
+
+new_marker_position = [ Math.floor(Math.random() * main_map_height), Math.floor(Math.random() * main_map_height)];

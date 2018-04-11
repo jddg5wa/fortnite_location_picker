@@ -2,54 +2,88 @@
     font-family: 'Luckiest Guy', cursive, 'Arial';
 }
 
+:root {
+    --main-map-width: 400vw; 
+    --mini-map-width: 25vw;
+
+    --main-marker-width: 5vw;
+}
+
 body {
+    width: 100%;
+    height: 100%;
+
+    padding: 0px;
+    margin: 0px;
+
     background-color: #43b9ff;
 }
 
-#container {
-    float: center;
-    margin: auto;
-    display:table;
-    background-color: white;
-    min-width: 750px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
+#map_container{
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+    /* overflow: hidden; */
+
+    cursor : move;
+}
+
+#map{
+    width: var(--main-map-width);
+    height: var(--main-map-width);
+
+    /* box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: .25vw solid black; */
+
+    background-image: url("assets/Asset_4kMap_Fortnite.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+
+
+    position: relative;
+    top: 0px;
+    left: 0px;
+    /* top: calc(var(--main-map-width)*-.5);
+    left: calc(var(--main-map-width)*-.5); */
+
+    cursor : move;
+}
+
+#map_marker {
+    width: 75px;
+    height: auto; 
+
+    position: relative;
+    top: calc(var(--main-map-width)*.5 - (var(--main-marker-width)*2));
+    left: calc(var(--main-map-width)*.5 -  (var(--main-marker-width)*.5));
+}
+
+#mini_map_container{
+    width: var(--mini-map-width);
+    height: 100%;
+
+    position: fixed;
+    top: 0px;
+    right: 0px;
+
+    margin: 1vw;
+}
+
+#mini_map{
+    max-width: 100%;
+    height: 100%;
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: .25vw solid #0f0f0f;
     border-radius: 10px;
+    
+    background-image: url("assets/Asset_4kMap_Fortnite.jpg");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
-
-#button{
-    display: table-cell;
-    vertical-align: top;
-    background-color: #43b9ff;
-    color: white;
-    border: none;
-    padding: 7px;
-    margin: 5px;
-    font-size: 18pt;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-}
-
-#button:hover{
-    background-color: #1BAFFF;
-}
-
-#button:active{
-    -webkit-box-shadow: inset 0px 27px 10px -27px rgba(0,0,0,0.45);
-    -moz-box-shadow: inset 0px 27px 10px -27px rgba(0,0,0,0.45);
-    box-shadow: inset 0px 27px 10px -27px rgba(0,0,0,0.45);
-}
-
-button:focus {
-    outline:0;
-}
-
-#outputText {
-    display: table-cell;
-    vertical-align: top;
-    min-width: 100px;
-    padding: 12px 20px 7px 10px;
-    font-size: 18pt;
-}
-
