@@ -38,7 +38,7 @@ body {
     -webkit-box-sizing: border-box;
     border: .25vw solid black; */
 
-    background-image: url("assets/Asset_4kMap_Fortnite.jpg");
+    background-image: url("/assets/Asset_4kMap_Fortnite.jpg");
     background-size: contain;
     background-repeat: no-repeat;
 
