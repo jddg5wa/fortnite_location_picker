@@ -3,14 +3,17 @@
 }
 
 :root {
-    --main-map-width: 400vw; 
-    --mini-map-width: 25vw;
+    --map: url("assets/Asset_Map_Fortnite.png");
+    --minimap: url("assets/Asset_MiniMap_Fortnite.png");
 
-    --main-marker-width: 5vw;
+    --main-map-width: 350vw; 
+    --mini-map-width: 20vw;
 
-    --black: #0f0f0f;
-    --black-hover: #191919;
-    --black-click: #070707;
+    --marker-width: 25vw;
+
+    --black: black;
+    --black-hover: #0c0c0c;
+    --black-click: black;
     --white: #cccccc;
 }
 
@@ -24,7 +27,7 @@ body {
     background-color: #43b9ff;
 }
 
-#map_container{
+#viewport{
     width: 100%;
     height: 100%;
 
@@ -34,36 +37,33 @@ body {
     cursor : move;
 }
 
-#map{
-    width: var(--main-map-width);
-    height: var(--main-map-width);
-
-    /* box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    border: .25vw solid black; */
-
-    background-image: url("assets/Asset_4kMap_Fortnite.jpg");
-    background-size: contain;
-    background-repeat: no-repeat;
-
-
+#map_container{
     position: relative;
-    top: 0px;
-    left: 0px;
-    /* top: calc(var(--main-map-width)*-.5);
-    left: calc(var(--main-map-width)*-.5); */
+    top: 0;
+    left: 0;
 
-    cursor : move;
+    /* cursor : move; */
+}
+
+#map_img {
+    width: var(--main-map-width);
+    height: auto;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 #map_marker {
-    width: 75px;
+    width: var(--marker-width);
     height: auto; 
+    padding: .01vw;
 
-    position: relative;
-    top: calc(var(--main-map-width)*.5 - (var(--main-marker-width)*2));
-    left: calc(var(--main-map-width)*.5 -  (var(--main-marker-width)*.5));
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
 }
 
 #mini_map_container{
@@ -74,36 +74,48 @@ body {
     right: 0px;
 
     margin: 1vw;
+    z-index: 5;
 
-    opacity: 0.75;
+    /* opacity: 0.75; */
 }
 
 #mini_map{
-    max-width: 100%;
-    /* height: 100vw; */
+    width: 100%;
+    height: 100%;
+
+    padding: 0px;
+    margin: 0px;
 
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     border: .25vw solid var(--black);
-    border-radius: 10px;
+    /* border-radius: 10px; */
     
-    background-image: url("assets/Asset_4kMap_Fortnite.jpg");
+    background-image: var(--minimap);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
 }
 
+button, button:hover, button:active, button:focus {
+    border: none;
+    outline: none;
+}
+
+
 #location_button{
     width: 100%;
-    height: 5vw;
+    /* height: 5vw; */
+
+    padding: .6vw;
 
     color: var(--white);
-    font-size: 3vw;
+    font-size: 1.4vw;
     letter-spacing: .125vw;
 
     background-color: var(--black);
-    border: 0;
+    border: none;
     border-radius: 10px;
 
     margin-top: 1vw; 
@@ -112,8 +124,10 @@ body {
 
 #location_button:hover{
     background-color: var(--black-hover);
+    border: none;
 }
 
 #location_button:active{
     background-color: var(--black);
+    border: none;
 }
