@@ -14,7 +14,7 @@ var srcBoundingPolygon = [[1345, 745], [2275, 678], [2968, 865], [3729, 1274],
                          [5368,7041], [4975,7556], [4038,7556], [3464,7020], 
                          [3050,7252], [2790,7252], [2599,7000], [2653,6254], 
                          [2313, 5770], [2082,5811], [525, 455], [641, 3452], 
-                         [1026, 1991], [1018, 1519], [1196, 1274],[1345, 745]];
+                         [1026, 1991], [1018, 1519], [1196, 1274]];
 
 var srcBoundingBox = [[323, 455], [7796, 455], [7796, 7639], [323, 7639]];
 
@@ -172,15 +172,15 @@ function randomMapLocation(map) {
     var boundingBox = convertRelativePointsLocation(srcBoundingPolygon, mapImage);
     var inPoly = pointInPoly(boundingBox, randomPoint);
 
-    // console.log("in poly:", inPoly);
-    // console.log("random point:", randomPoint);
+    console.log("in poly:", inPoly);
+    console.log("random point:", randomPoint);
 
     while(inPoly != true || inPoly == 0) {
         randomPoint = getRandomPoint(map);
         inPoly = pointInPoly(boundingBox, randomPoint);
 
-        // console.log("in poly:", inPoly);
-        // console.log("random point:", randomPoint);
+        console.log("in poly:", inPoly);
+        console.log("random point:", randomPoint);
     }
 
     marker.style.top = randomPoint[0]-(marker.offsetHeight*.5) + 'px';
