@@ -32,13 +32,17 @@ body {
     height: 100%;
 
     position: relative;
-    /* overflow: hidden; */
+    overflow: hidden;
+
+    /* cursor : move; */
 }
 
 #map_container{
     position: relative;
     top: 0;
     left: 0;
+
+    /* cursor : move; */
 }
 
 #map_img {
