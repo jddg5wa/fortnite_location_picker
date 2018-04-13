@@ -17,6 +17,16 @@
     --white: #cccccc;
 }
 
+button, button:hover, button:active, button:focus {
+    border: none;
+    outline: none;
+}
+
+img, img:hover, img:focus, image:active {
+    border: none;
+    outline: none;
+}
+
 body {
     width: 100%;
     height: 100%;
@@ -91,11 +101,6 @@ body {
     width: 100%;
     margin: 0px;
     padding: 0px;
-}
-
-button, button:hover, button:active, button:focus {
-    border: none;
-    outline: none;
 }
 
 
