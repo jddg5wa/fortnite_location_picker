@@ -93,14 +93,14 @@ body {
     -webkit-box-sizing: border-box;
     border: .25vw solid var(--black);
     /* border-radius: 10px; */
-
-    opacity: 0.75;
 }
 
 #mini_map_img {
     width: 100%;
     margin: 0px;
     padding: 0px;
+
+    opacity: 0.75;
 }
 
 
