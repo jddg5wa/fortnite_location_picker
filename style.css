@@ -6,10 +6,10 @@
     --map: url("assets/Asset_Map_Fortnite.png");
     --minimap: url("assets/Asset_MiniMap_Fortnite.png");
 
-    --main-map-width: 350vw; 
-    --mini-map-width: 20vw;
+    --main-map-width: 6600px; 
+    --mini-map-width: 425px;
 
-    --marker-width: 25vw;
+    --marker-width: 350px;
 
     --black: black;
     --black-hover: #0c0c0c;
@@ -32,17 +32,13 @@ body {
     height: 100%;
 
     position: relative;
-    overflow: hidden;
-
-    cursor : move;
+    /* overflow: hidden; */
 }
 
 #map_container{
     position: relative;
     top: 0;
     left: 0;
-
-    /* cursor : move; */
 }
 
 #map_img {
@@ -80,22 +76,17 @@ body {
 }
 
 #mini_map{
-    width: 100%;
-    height: 100%;
-
-    padding: 0px;
-    margin: 0px;
-
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     border: .25vw solid var(--black);
     /* border-radius: 10px; */
-    
-    background-image: var(--minimap);
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
+}
+
+#mini_map_img {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
 }
 
 button, button:hover, button:active, button:focus {
@@ -111,7 +102,7 @@ button, button:hover, button:active, button:focus {
     padding: .6vw;
 
     color: var(--white);
-    font-size: 1.4vw;
+    font-size: 25px;
     letter-spacing: .125vw;
 
     background-color: var(--black);
