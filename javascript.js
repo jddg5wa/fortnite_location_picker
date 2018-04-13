@@ -150,23 +150,22 @@ function pointInRect(rectangle, point){
 function setMapPosition(map, point, verticalOffset, horizontalOffset, randomLimit){
     var verticalOffsetRandom = verticalOffset + Math.random()*randomLimit;
     var horizontalOffsetRandom = horizontalOffset + Math.random()*randomLimit;
-    var mapPosition = [Math.floor(Math.abs(point[0]-(viewport.offsetHeight*verticalOffsetRandom))), Math.floor(Math.abs(point[1]-(viewport.offsetWidth*horizontalOffsetRandom)))]
+    var mapPosition = [Math.abs(point[0]-(screen.height*verticalOffsetRandom)), Math.abs(point[1]-(screen.width*horizontalOffsetRandom))]
 
     //checks if map edge is inside screen
     //adjusts map edge to stay on edge of screen
-    // if (point[0] > map.offsetHeight-(viewport.offsetHeight*(1-verticalOffset))){
-    //     mapPosition[0] == map.offsetHeight-viewport.offsetHeight;
-    // }
+    if (point[0] > map.offsetHeight-(screen.height*(1-verticalOffset))){
+        mapPosition[0] = map.offsetHeight-screen.height;
+    }
 
-    // if (point[1] > map.offsetWidth-(viewport.offsetWidth*(1-horizontalOffset))){
-    //     mapPosition[1] == map.offsetWidth-viewport.offsetWidth;
-    // }
+    if (point[1] > map.offsetWidth-(screen.width*(1-horizontalOffset))){
+        mapPosition[1] = map.offsetWidth-screen.width;
+    }
 
-    mapContainer.style.top == mapPosition[0] + 'px';
-    mapContainer.style.left == mapPosition[1] + 'px';
-
-    console.log(mapPosition[0], mapPosition[1]);
+    mapContainer.style.top = -mapPosition[0] + 'px';
+    mapContainer.style.left = -mapPosition[1] + 'px';
 }
+
 
 function randomMapLocation(map) {
     var randomPoint = getRandomPoint(map);
@@ -189,7 +188,7 @@ function randomMapLocation(map) {
 
     var mapOffset = getRandomOffsetPoint(randomPoint, map);
 
-    setMapPosition(mapImage, mapOffset, .5, .35, .1)
+    setMapPosition(mapImage, mapOffset, .5, .3, .1)
 
     // console.log("map size: " + mapWebDimensions);     
     // console.log("marker position: " + randomPoint);   
