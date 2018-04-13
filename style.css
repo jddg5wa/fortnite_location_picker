@@ -12,7 +12,7 @@
     --marker-width: 350px;
 
     --black: black;
-    --black-hover: #0c0c0c;
+    --black-hover: #161616;
     --black-click: black;
     --white: #cccccc;
 }
@@ -75,8 +75,6 @@ body {
 
     margin: 1vw;
     z-index: 5;
-
-    /* opacity: 0.75; */
 }
 
 #mini_map{
@@ -85,6 +83,8 @@ body {
     -webkit-box-sizing: border-box;
     border: .25vw solid var(--black);
     /* border-radius: 10px; */
+
+    opacity: 0.75;
 }
 
 #mini_map_img {
