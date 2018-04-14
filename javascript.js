@@ -1,9 +1,13 @@
 var mapViewport;
 var mapContainer;
 var marker;
-var miniMapMarker;
-var miniMapTopbar;
-var miniMapSidebar;
+var mapTopBar;
+var mapSideBar;
+// var miniMapMarker;
+// var miniMapTopbar;
+// var miniMapSidebar;
+
+var randomPoint;
 
 //bounding box points taken from map source image dimensions
 var srcBoundingPolygon = [[1345, 745], [2275, 678], [2968, 865], [3729, 1274], 
@@ -147,48 +151,51 @@ function pointInRect(rectangle, point){
 function setMapPosition(map, point, verticalOffset, horizontalOffset, randomLimit){
     var verticalOffsetRandom = verticalOffset + Math.random()*randomLimit;
     var horizontalOffsetRandom = horizontalOffset + Math.random()*randomLimit;
-    var mapPosition = [Math.abs(point[0]-(screen.height*verticalOffsetRandom)), Math.abs(point[1]-(screen.width*horizontalOffsetRandom))]
+    var mapPosition = [Math.abs(point[0]-(mapViewport.offsetHeight*verticalOffsetRandom)), Math.abs(point[1]-(mapViewport.offsetWidth*horizontalOffsetRandom))];
 
     //checks if map edge is inside screen
     //adjusts map edge to stay on edge of screen
-    if (point[0] > map.offsetHeight-(screen.height*(1-verticalOffset))){
-        mapPosition[0] = map.offsetHeight-screen.height;
+    if (point[0] > map.offsetHeight-(mapViewport.offsetHeight*(1-verticalOffset))){
+        mapPosition[0] = map.offsetHeight-mapViewport.offsetHeight;
     }
 
-    if (point[1] > map.offsetWidth-(screen.width*(1-horizontalOffset))){
-        mapPosition[1] = map.offsetWidth-screen.width;
+    if (point[1] > map.offsetWidth-(mapViewport.offsetWidth*(1-horizontalOffset))){
+        mapPosition[1] = map.offsetWidth-mapViewport.offsetWidth;
     }
 
     mapContainer.style.top = -mapPosition[0] + 'px';
     mapContainer.style.left = -mapPosition[1] + 'px';
+
+    mapTopBar.style.left = -mapPosition[1] + 'px';
+    mapSideBar.style.top = -mapPosition[0] + 'px';
 }
 
-function setMiniMapPosition(map, container, viewport,  point, verticalOffset, horizontalOffset, randomLimit){
-    var verticalOffsetRandom = verticalOffset + Math.random()*randomLimit;
-    var horizontalOffsetRandom = horizontalOffset + Math.random()*randomLimit;
-    var mapPosition = [Math.abs(Math.floor(point[0]-(viewport.offsetHeight*verticalOffsetRandom))), Math.abs(Math.floor(point[1]-(viewport.offsetWidth*horizontalOffsetRandom)))];
+// function setMiniMapPosition(map, container, viewport,  point, verticalOffset, horizontalOffset, randomLimit){
+//     var verticalOffsetRandom = verticalOffset + Math.random()*randomLimit;
+//     var horizontalOffsetRandom = horizontalOffset + Math.random()*randomLimit;
+//     var mapPosition = [Math.abs(Math.floor(point[0]-(viewport.offsetHeight*verticalOffsetRandom))), Math.abs(Math.floor(point[1]-(viewport.offsetWidth*horizontalOffsetRandom)))];
 
-    // checks if map edge is inside viewport
-    // adjusts map edge to stay on edge of viewport
-    if (point[0] > map.offsetHeight-(viewport.offsetHeight*(1-verticalOffset))){
-        mapPosition[0] = map.offsetHeight-viewport.offsetHeight;
-    }
+//     // checks if map edge is inside viewport
+//     // adjusts map edge to stay on edge of viewport
+//     if (point[0] > map.offsetHeight-(viewport.offsetHeight*(1-verticalOffset))){
+//         mapPosition[0] = map.offsetHeight-viewport.offsetHeight;
+//     }
 
-    if (point[1] > map.offsetWidth-(viewport.offsetWidth*(1-horizontalOffset))){
-        mapPosition[1] = map.offsetWidth-viewport.offsetWidth;
-    }
+//     if (point[1] > map.offsetWidth-(viewport.offsetWidth*(1-horizontalOffset))){
+//         mapPosition[1] = map.offsetWidth-viewport.offsetWidth;
+//     }
 
-    container.style.top = -mapPosition[0] + 'px';
-    container.style.left = -mapPosition[1] + 'px';
+//     container.style.top = -mapPosition[0] + 'px';
+//     container.style.left = -mapPosition[1] + 'px';
 
-    miniMapTopbar.style.left = -mapPosition[1] + 'px';
-    miniMapSidebar.style.top = -mapPosition[0] + 'px';
-}
+//     miniMapTopbar.style.left = -mapPosition[1] + 'px';
+//     miniMapSidebar.style.top = -mapPosition[0] + 'px';
+// }
 
 
 
 function randomMapLocation(map) {
-    var randomPoint = getRandomPoint(map);
+    randomPoint = getRandomPoint(map);
     var boundingBox = convertRelativePointsLocation(srcBoundingPolygon, mapImage);
     var inPoly = pointInPoly(boundingBox, randomPoint);
 
@@ -206,17 +213,17 @@ function randomMapLocation(map) {
     marker.style.top = randomPoint[0]-(marker.offsetHeight*.5) + 'px';
     marker.style.left = randomPoint[1]-(marker.offsetWidth*.5) + 'px';
 
-    miniMapMarker.style.top = Math.floor(randomPoint[0]*(miniMapImage.offsetHeight/mapImage.offsetHeight))-(miniMapMarker.offsetHeight*.5) + 'px';
-    miniMapMarker.style.left = Math.floor(randomPoint[1]*(miniMapImage.offsetWidth/mapImage.offsetWidth))-(miniMapMarker.offsetWidth*.5) + 'px';
+    // miniMapMarker.style.top = Math.floor(randomPoint[0]*(miniMapImage.offsetHeight/mapImage.offsetHeight))-(miniMapMarker.offsetHeight*.5) + 'px';
+    // miniMapMarker.style.left = Math.floor(randomPoint[1]*(miniMapImage.offsetWidth/mapImage.offsetWidth))-(miniMapMarker.offsetWidth*.5) + 'px';
 
-    var mapPoint = [Math.abs(Math.floor(randomPoint[0])), Math.abs(Math.floor(randomPoint[1]))];
-    var miniMapPoint = [Math.abs(Math.floor(randomPoint[0]*(miniMapImage.offsetHeight/mapImage.offsetHeight))), Math.abs(Math.floor(randomPoint[1]*(miniMapImage.offsetWidth/mapImage.offsetWidth)))];
+    mapPoint = [Math.abs(Math.floor(randomPoint[0])), Math.abs(Math.floor(randomPoint[1]))];
+    // var miniMapPoint = [Math.abs(Math.floor(randomPoint[0]*(miniMapImage.offsetHeight/mapImage.offsetHeight))), Math.abs(Math.floor(randomPoint[1]*(miniMapImage.offsetWidth/mapImage.offsetWidth)))];
 
     // console.log("mapPoint:", mapPoint[0], mapPoint[1]);
     // console.log("miniMapPoint:", miniMapPoint[0], miniMapPoint[1])
 
-    setMapPosition(mapImage, mapPoint, .5, .3, .1);
-    setMiniMapPosition(miniMapImage, miniMapContainer, miniMapViewport, miniMapPoint, .45, .45, .05);
+    setMapPosition(mapImage, mapPoint, .5, .5, 0);
+    // setMiniMapPosition(miniMapImage, miniMapContainer, miniMapViewport, miniMapPoint, .45, .45, .05);
 
     // console.log("map size: " + mapWebDimensions);     
     // console.log("marker position: " + randomPoint);   
@@ -224,19 +231,52 @@ function randomMapLocation(map) {
     // console.log("screen width: " + viewport.offsetWidth + " -- screen height: " + viewport.offsetHeight);
     // console.log("-----------------------------------");
 }
+
+function adjustMapView() {
+    console.log("map view changed");
+    marker.style.top = randomPoint[0]-(marker.offsetHeight*.5) + 'px';
+    marker.style.left = randomPoint[1]-(marker.offsetWidth*.5) + 'px';
+
+    mapPoint = [Math.abs(Math.floor(randomPoint[0])), Math.abs(Math.floor(randomPoint[1]))];
+
+    setMapPosition(mapImage, mapPoint, .5, .5, 0);
+}
+
+var count = 0;
+function toggleGrid(){
+
+    if (count == 0){
+        mapTopBar.style.display = "none";     
+        mapSideBar.style.display = "none";
+        mapGrid.style.display = "none";
+        count += 1;
+    }
+    else if (count > 0){
+        mapTopBar.style.display = "block";     
+        mapSideBar.style.display = "block";
+        mapGrid.style.display = "block";
+        count = 0;
+    }
+
+    console.log(count);
+}
+
 window.onload = function load() {
     mapContainer = document.getElementById("map_container");
-    mapImage = document.getElementById("map_img");
+    mapImage = document.getElementById("map_image");
     mapViewport = document.getElementById("map_viewport");
+    mapTopBar = document.getElementById("map_topbar");
+    mapSideBar = document.getElementById("map_sidebar");
+    mapGrid = document.getElementById("map_grid");
 
-    miniMapViewport = document.getElementById("mini_map_viewport");
-    miniMapContainer = document.getElementById("mini_map_container");
-    miniMap = document.getElementById("mini_map");
-    miniMapImage = document.getElementById("mini_map_img");
-    miniMapMarker = document.getElementById("mini_map_marker");
+    // miniMapViewport = document.getElementById("mini_map_viewport");
+    // miniMapContainer = document.getElementById("mini_map_container");
+    // miniMap = document.getElementById("mini_map");
+    // miniMapImage = document.getElementById("mini_map_image");
+    // miniMapMarker = document.getElementById("mini_map_marker");
 
-    miniMapTopbar = document.getElementById("mini_map_topbar");
-    miniMapSidebar = document.getElementById("mini_map_sidebar");
+    // miniMapTopbar = document.getElementById("mini_map_topbar");
+    // miniMapSidebar = document.getElementById("mini_map_sidebar");
 
     mapContainer.style.height = mapImage.offsetHeight;
     mapContainer.style.width = mapImage.offsetWidth;

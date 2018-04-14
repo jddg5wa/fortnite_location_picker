@@ -5,22 +5,27 @@
         <link rel="stylesheet"  type="text/css" href="style.css">
     </head>
 
-    <body onresize="">
+    <body onresize="adjustMapView()">
         <div id="map_viewport">
+            <img id="map_topbar" src="assets\Asset_MapTopBar_Fortnite.jpg" alt="map_topbar"></img>
+            <img id="map_sidebar" src="assets\Asset_MapSideBar_Fortnite.jpg" alt="map_sidebar"></img>
             <div id="map_container">
                 <img id="map_marker" src="assets/Asset_MapMarker_Fortnite.png" alt="marker"></img>
-                <img id="map_img" src="assets/Asset_Map_Fortnite.jpg" alt="map" ></img>
+                <img id="map_grid" src="assets/Asset_MapGrid_Fortnite.png" alt="grid"></img>
+                <img id="map_image" src="assets/Asset_Map_Fortnite.jpg" alt="map" ></img>
             </div>
         </div>
         <div id="user_interface">
-            <div id="mini_map_viewport">
+            <!-- <div id="mini_map_viewport">
                 <img id="mini_map_topbar" src="assets/Asset_GridTopBar_Fortnite.png" alt="mini_map_topbar"></img>
                 <img id="mini_map_sidebar" src="assets/Asset_GridSidebar_Fortnite.png" alt="mini_map_sidebar"></img>
                 <div id="mini_map_container">
-                    <img id="mini_map_img" src="assets/Asset_MiniMap_Fortnite.jpg" alt="mini map"></img>
+                    <img id="mini_map_image" src="assets/Asset_MiniMap_Fortnite.jpg" alt="mini map"></img>
                     <img id="mini_map_marker" src="assets/Asset_MiniMapMarker_Fortnite.png" alt="mini_map_marker"></img>
                 </div>
-            </div>
+            </div> -->
+            <!-- <div id="grid_checkbox_container"></div><input id="grid_checkbox" type="checkbox" name="grid" value="grid-on"> -->
+            <button class="resize" id="grid_button" type="button" onclick="toggleGrid()">Toggle Grid</button>
             <button class="resize" id="location_button" type="button" onclick="randomMapLocation(mapImage)">New Random Location</button>
         </div>
     </body>

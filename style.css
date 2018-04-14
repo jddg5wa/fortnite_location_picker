@@ -6,11 +6,13 @@
     --map: url("assets/Asset_Map_Fortnite.png");
     --minimap: url("assets/Asset_MiniMap_Fortnite.png");
 
-    --main-map-width: 6600px; 
-    --user-interface: 400px;
-    --mini-map-width: 1000px;
+    --map-viewport-width: 100vw;
+    --user-interface-width: 33vw;
+    --map-width: 180vw; 
+    --mini-map-width: 1125px;
+    --mobile-mini-map-width: 1275px;
 
-    --marker-width: 350px;
+    --marker-width: 12vw;
 
     --black: black;
     --black-hover: #161616;
@@ -36,11 +38,11 @@ body {
     padding: 0px;
     margin: 0px;
 
-    background-color: #43b9ff;
+    background-color: var(--black);
 }
 
-#viewport{
-    width: 100%;
+#map_viewport{
+    width: var(--map-viewport-width);
     height: 100%;
 
     position: absolute;
@@ -57,14 +59,48 @@ body {
     /* cursor : move; */
 }
 
-#map_img {
-    width: var(--main-map-width);
+#map_image {
+    width: var(--map-width);
     height: auto;
 
     position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
+}
+
+#map_grid {
+    width: var(--map-width);
+    height: auto;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+
+    opacity: .25;
+}
+
+#map_topbar {
+    width: var(--map-width);
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    opacity: .4;
+    z-index: 3;
+}
+
+#map_sidebar {
+    height: var(--map-width);
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    opacity: .4;
+    z-index: 3;
 }
 
 #map_marker {
@@ -75,14 +111,15 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 3;
+    z-index: 5;
 }
 
 #user_interface{
-    width: var(--user-interface);
+    width: var(--user-interface-width);
+    height: auto;
 
     position: fixed;
-    top: 0px;
+    bottom: 0px;
     right: 0px;
 
     margin: 1vw;
@@ -90,13 +127,13 @@ body {
 }
 
 #mini_map_viewport{
-    width: var(--user-interface);
-    height: var(--user-interface);
+    width: var(--user-interface-width);
+    height: var(--user-interface-width);
 
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    border: 18px solid var(--black);
+    /* border: 18px solid var(--black); */
     border-radius: 10px;
 
     display:block;
@@ -115,7 +152,7 @@ body {
     /* cursor : move; */
 }
 
-#mini_map_img {
+#mini_map_image {
     width: var(--mini-map-width);
     margin: 0px;
     padding: 0px;
@@ -155,30 +192,79 @@ body {
     z-index: 10;
 }
 
-#location_button{
-    width: 100%;
-    /* height: 5vw; */
+/* #grid_checkbox{
+    float:right;
+} */
 
-    padding: .6vw;
+#location_button{
+    float: right;
+    padding: 1vw;
 
     color: var(--white);
-    font-size: 25px;
+    font-size: 2.6vw;
     letter-spacing: .125vw;
 
     background-color: var(--black);
-    border: none;
-    border-radius: 10px;
+    /* border: 5px solid var(--white); */
+    border-radius: 10px; 
 
-    margin-top: 1vw; 
+    /* margin-top: 1vw;  */
     cursor: hand;
 }
 
-#location_button:hover{
-    background-color: var(--black-hover);
-    border: none;
+#grid_button{
+    float: right;
+    margin-bottom: 1vw;
+    padding: 1vw;
+
+    color: var(--white);
+    font-size: 2.6vw;
+    letter-spacing: .125vw;
+
+    background-color: var(--black);
+    /* border: 5px solid var(--white); */
+    border-radius: 10px; 
+
+    /* margin-top: 1vw;  */
+    cursor: hand;
 }
 
-#location_button:active{
+#location_button:hover, #grid_button:hover {
+    background-color: var(--black-hover);
+}
+
+#location_button:active #grid_button:active {
     background-color: var(--black);
-    border: none;
+}
+
+@media ( max-width: 1200px){
+    :root {
+        --marker-width: 15vw;
+        --map-width: 200vw; 
+        --user-interface-width: 50vw;
+    }
+}
+
+@media ( max-width: 700px){
+    :root {
+        --marker-width: 25vw;
+        --map-width: 300vw; 
+        --user-interface-width: 50vw;
+    }
+
+    #grid_button, #location_button {
+        font-size: 3vw;
+    }
+}
+
+@media ( max-width: 550px){
+    :root {
+        --marker-width: 32vw;
+        --map-width: 550vw; 
+        --user-interface-width: 60vw;
+    }
+
+    #grid_button, #location_button {
+        font-size: 5vw;
+    }
 }
