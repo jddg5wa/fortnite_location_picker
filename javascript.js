@@ -1,10 +1,9 @@
-var viewport;
+var mapViewport;
 var mapContainer;
-var mapSrcDimensions = [0, 0];
-var mapWebDimensions = [0, 0];
-
 var marker;
-var markerDimensions = [0, 0];
+var miniMapMarker;
+var miniMapTopbar;
+var miniMapSidebar;
 
 //bounding box points taken from map source image dimensions
 var srcBoundingPolygon = [[1345, 745], [2275, 678], [2968, 865], [3729, 1274], 
@@ -52,8 +51,6 @@ function getRandomPoint(element) {
 
 //point = array containing [x, y] coordinates of offset point origin
 //element = object to get offset point in
-//viewportOffset = decimal fraction of screen to map offset horizontally
-//randomLimit = decimal fraction of screen to grab random offset point in relation viewport offset and the origin point.
 function getRandomOffsetPoint(point, element){
     var offsetPoint;
 
@@ -113,11 +110,11 @@ function pointInRect(rectangle, point){
         }
     });
 
-    console.log(minX);
-    console.log(maxX);
-    console.log(minY);
-    console.log(maxY);
-    console.log(point);
+    // console.log(minX);
+    // console.log(maxX);
+    // console.log(minY);
+    // console.log(maxY);
+    // console.log(point);
     // console.log(rectangle[0]);
 
 
@@ -166,29 +163,60 @@ function setMapPosition(map, point, verticalOffset, horizontalOffset, randomLimi
     mapContainer.style.left = -mapPosition[1] + 'px';
 }
 
+function setMiniMapPosition(map, container, viewport,  point, verticalOffset, horizontalOffset, randomLimit){
+    var verticalOffsetRandom = verticalOffset + Math.random()*randomLimit;
+    var horizontalOffsetRandom = horizontalOffset + Math.random()*randomLimit;
+    var mapPosition = [Math.abs(Math.floor(point[0]-(viewport.offsetHeight*verticalOffsetRandom))), Math.abs(Math.floor(point[1]-(viewport.offsetWidth*horizontalOffsetRandom)))];
+
+    // checks if map edge is inside viewport
+    // adjusts map edge to stay on edge of viewport
+    if (point[0] > map.offsetHeight-(viewport.offsetHeight*(1-verticalOffset))){
+        mapPosition[0] = map.offsetHeight-viewport.offsetHeight;
+    }
+
+    if (point[1] > map.offsetWidth-(viewport.offsetWidth*(1-horizontalOffset))){
+        mapPosition[1] = map.offsetWidth-viewport.offsetWidth;
+    }
+
+    container.style.top = -mapPosition[0] + 'px';
+    container.style.left = -mapPosition[1] + 'px';
+
+    miniMapTopbar.style.left = -mapPosition[1] + 'px';
+    miniMapSidebar.style.top = -mapPosition[0] + 'px';
+}
+
+
 
 function randomMapLocation(map) {
     var randomPoint = getRandomPoint(map);
     var boundingBox = convertRelativePointsLocation(srcBoundingPolygon, mapImage);
     var inPoly = pointInPoly(boundingBox, randomPoint);
 
-    console.log("in poly:", inPoly);
-    console.log("random point:", randomPoint);
+    // console.log("in poly:", inPoly);
+    // console.log("random point:", randomPoint);
 
     while(inPoly != true || inPoly == 0) {
         randomPoint = getRandomPoint(map);
         inPoly = pointInPoly(boundingBox, randomPoint);
 
-        console.log("in poly:", inPoly);
-        console.log("random point:", randomPoint);
+        // console.log("in poly:", inPoly);
+        // console.log("random point:", randomPoint);
     }
 
     marker.style.top = randomPoint[0]-(marker.offsetHeight*.5) + 'px';
     marker.style.left = randomPoint[1]-(marker.offsetWidth*.5) + 'px';
 
-    var mapOffset = getRandomOffsetPoint(randomPoint, map);
+    miniMapMarker.style.top = Math.floor(randomPoint[0]*(miniMapImage.offsetHeight/mapImage.offsetHeight))-(miniMapMarker.offsetHeight*.5) + 'px';
+    miniMapMarker.style.left = Math.floor(randomPoint[1]*(miniMapImage.offsetWidth/mapImage.offsetWidth))-(miniMapMarker.offsetWidth*.5) + 'px';
 
-    setMapPosition(mapImage, mapOffset, .5, .3, .1)
+    var mapPoint = [Math.abs(Math.floor(randomPoint[0])), Math.abs(Math.floor(randomPoint[1]))];
+    var miniMapPoint = [Math.abs(Math.floor(randomPoint[0]*(miniMapImage.offsetHeight/mapImage.offsetHeight))), Math.abs(Math.floor(randomPoint[1]*(miniMapImage.offsetWidth/mapImage.offsetWidth)))];
+
+    // console.log("mapPoint:", mapPoint[0], mapPoint[1]);
+    // console.log("miniMapPoint:", miniMapPoint[0], miniMapPoint[1])
+
+    setMapPosition(mapImage, mapPoint, .5, .3, .1);
+    setMiniMapPosition(miniMapImage, miniMapContainer, miniMapViewport, miniMapPoint, .45, .45, .05);
 
     // console.log("map size: " + mapWebDimensions);     
     // console.log("marker position: " + randomPoint);   
@@ -199,7 +227,16 @@ function randomMapLocation(map) {
 window.onload = function load() {
     mapContainer = document.getElementById("map_container");
     mapImage = document.getElementById("map_img");
-    viewport = document.getElementById("viewport");
+    mapViewport = document.getElementById("map_viewport");
+
+    miniMapViewport = document.getElementById("mini_map_viewport");
+    miniMapContainer = document.getElementById("mini_map_container");
+    miniMap = document.getElementById("mini_map");
+    miniMapImage = document.getElementById("mini_map_img");
+    miniMapMarker = document.getElementById("mini_map_marker");
+
+    miniMapTopbar = document.getElementById("mini_map_topbar");
+    miniMapSidebar = document.getElementById("mini_map_sidebar");
 
     mapContainer.style.height = mapImage.offsetHeight;
     mapContainer.style.width = mapImage.offsetWidth;

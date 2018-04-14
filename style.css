@@ -7,7 +7,8 @@
     --minimap: url("assets/Asset_MiniMap_Fortnite.png");
 
     --main-map-width: 6600px; 
-    --mini-map-width: 425px;
+    --user-interface: 400px;
+    --mini-map-width: 1000px;
 
     --marker-width: 350px;
 
@@ -25,6 +26,7 @@ button, button:hover, button:active, button:focus {
 img, img:hover, img:focus, image:active {
     border: none;
     outline: none;
+    vertical-align: middle;
 }
 
 body {
@@ -41,14 +43,14 @@ body {
     width: 100%;
     height: 100%;
 
-    position: relative;
+    position: absolute;
     overflow: hidden;
 
     /* cursor : move; */
 }
 
 #map_container{
-    position: relative;
+    position: absolute;
     top: 0;
     left: 0;
 
@@ -76,8 +78,8 @@ body {
     z-index: 3;
 }
 
-#mini_map_container{
-    width: var(--mini-map-width);
+#user_interface{
+    width: var(--user-interface);
 
     position: fixed;
     top: 0px;
@@ -87,22 +89,71 @@ body {
     z-index: 5;
 }
 
-#mini_map{
+#mini_map_viewport{
+    width: var(--user-interface);
+    height: var(--user-interface);
+
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    border: .25vw solid var(--black);
-    /* border-radius: 10px; */
+    border: 18px solid var(--black);
+    border-radius: 10px;
+
+    display:block;
+    position:relative;
+
+    overflow: hidden;
+}
+
+#mini_map_container{
+    display:block;
+
+    position: relative;
+    top: 0;
+    left: 0;
+
+    /* cursor : move; */
 }
 
 #mini_map_img {
-    width: 100%;
+    width: var(--mini-map-width);
     margin: 0px;
     padding: 0px;
 
-    opacity: 0.75;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    /* opacity: 0.75; */
 }
 
+#mini_map_marker {
+    width: 25px;
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+#mini_map_topbar {
+    width: var(--mini-map-width);
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    z-index: 10;
+}
+
+#mini_map_sidebar {
+    height: var(--mini-map-width);
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    z-index: 10;
+}
 
 #location_button{
     width: 100%;

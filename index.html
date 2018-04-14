@@ -5,17 +5,21 @@
         <link rel="stylesheet"  type="text/css" href="style.css">
     </head>
 
-    <body>
-        <div id="viewport">
+    <body onresize="">
+        <div id="map_viewport">
             <div id="map_container">
                 <img id="map_marker" src="assets/Asset_MapMarker_Fortnite.png" alt="marker"></img>
-                <img id="map_img" src="assets/Asset_Map_Fortnite.png" alt="map" ></img>
+                <img id="map_img" src="assets/Asset_Map_Fortnite.jpg" alt="map" ></img>
             </div>
         </div>
-        <div id="mini_map_container">
-            <div id="mini_map">
-                    <img id="mini_map_img" src="assets/Asset_MiniMap_Fortnite.png" alt="mini map"></img>
-                    <!-- <img id="mini_map_marker" src="assets/Asset_MiniMapMarkerFortnite.png" alt="mini_map_marker"></img> -->
+        <div id="user_interface">
+            <div id="mini_map_viewport">
+                <img id="mini_map_topbar" src="assets/Asset_GridTopBar_Fortnite.png" alt="mini_map_topbar"></img>
+                <img id="mini_map_sidebar" src="assets/Asset_GridSideBar_Fortnite.png" alt="mini_map_sidebar"></img>
+                <div id="mini_map_container">
+                    <img id="mini_map_img" src="assets/Asset_MiniMap_Fortnite.jpg" alt="mini map"></img>
+                    <img id="mini_map_marker" src="assets/Asset_MiniMapMarker_Fortnite.png" alt="mini_map_marker"></img>
+                </div>
             </div>
             <button class="resize" id="location_button" type="button" onclick="randomMapLocation(mapImage)">New Random Location</button>
         </div>
