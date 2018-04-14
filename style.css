@@ -241,7 +241,7 @@ body {
     :root {
         --marker-width: 15vw;
         --map-width: 200vw; 
-        --user-interface-width: 25vw;
+        --user-interface-width: 50vw;
     }
 }
 
