@@ -7,7 +7,7 @@
     --minimap: url("assets/Asset_MiniMap_Fortnite.png");
 
     --map-viewport-width: 100vw;
-    --user-interface-width: 33vw;
+    --user-interface-width: 25vw;
     --map-width: 180vw; 
     --mini-map-width: 1125px;
     --mobile-mini-map-width: 1275px;
@@ -201,7 +201,7 @@ body {
     padding: 1vw;
 
     color: var(--white);
-    font-size: 2.6vw;
+    font-size: 1.75vw;
     letter-spacing: .125vw;
 
     background-color: var(--black);
@@ -218,7 +218,7 @@ body {
     padding: 1vw;
 
     color: var(--white);
-    font-size: 2.6vw;
+    font-size: 1.75vw;
     letter-spacing: .125vw;
 
     background-color: var(--black);
@@ -241,7 +241,7 @@ body {
     :root {
         --marker-width: 15vw;
         --map-width: 200vw; 
-        --user-interface-width: 50vw;
+        --user-interface-width: 25vw;
     }
 }
 
