@@ -7,8 +7,6 @@ var mapSideBar;
 // var miniMapTopbar;
 // var miniMapSidebar;
 
-var randomPoint;
-
 //bounding box points taken from map source image dimensions
 var srcBoundingPolygon = [[1345, 745], [2275, 678], [2968, 865], [3729, 1274], 
                          [6805, 1096], [6991, 1564], [7300,1760], [7508, 3455], 
@@ -18,11 +16,24 @@ var srcBoundingPolygon = [[1345, 745], [2275, 678], [2968, 865], [3729, 1274],
                          [3050,7252], [2790,7252], [2599,7000], [2653,6254], 
                          [2313, 5770], [2082,5811], [525, 455], [641, 3452], 
                          [1026, 1991], [1018, 1519], [1196, 1274]];
-
 var srcBoundingBox = [[323, 455], [7796, 455], [7796, 7639], [323, 7639]];
-
 var webBoundingBoxPoints = [[0,0], [0,0]];
 
+var predeterminedPercent = .25;
+var buildingLocations = [[986, 1575], [1650, 1220],[1350,2140], [1350,3200], 
+                         [1800, 4200], [2350,2250], [4200,1825], [3600, 690], 
+                         [3855, 1950], [5000, 1861], [5100, 2950], [5600, 2900], 
+                         [6900, 2825], [4000, 3000], [3000,3500], [2350,6600],
+                         [2600, 5320], [3650,4700], [3250, 5850], [3200,7060],
+                         [4300, 6120], [4300, 5800], [4300, 5020], [4930, 4580],
+                         [4000, 6750], [4650, 7109], [5015, 6525], [5620, 3367],
+                         [6565, 3476], [6170,4950], [5900, 6138], [7300, 4550], 
+                         [7000, 4900], [6900, 5800], [6380, 6600], [3080, 3100],
+                         [4460, 600], [2680, 1600], [1450, 6350], [1650, 7100],
+                         [5670, 4050]];
+
+var oldLocation;
+var newLocation;
 
 //converts [x,y] points from one image to relatively fit an image of another size. 
 //points = array of arrays containing both [x, y] coordinates
@@ -49,8 +60,8 @@ function convertRelativePointsLocation(points, element) {
 
 //returns a random [x,y] coordinate point on an element
 function getRandomPoint(element) {
-    var randomPoint = [getRandomWholeNumber(0, element.offsetHeight), getRandomWholeNumber(0, element.offsetWidth)];
-    return randomPoint;
+    point = [getRandomWholeNumber(0, element.offsetHeight), getRandomWholeNumber(0, element.offsetWidth)];
+    return point;
 }
 
 //point = array containing [x, y] coordinates of offset point origin
@@ -151,7 +162,7 @@ function pointInRect(rectangle, point){
 function setMapPosition(map, point, verticalOffset, horizontalOffset, randomLimit){
     var verticalOffsetRandom = verticalOffset + Math.random()*randomLimit;
     var horizontalOffsetRandom = horizontalOffset + Math.random()*randomLimit;
-    var mapPosition = [Math.abs(point[0]-(mapViewport.offsetHeight*verticalOffsetRandom)), Math.abs(point[1]-(mapViewport.offsetWidth*horizontalOffsetRandom))];
+    var mapPosition = [point[0]-(mapViewport.offsetHeight*verticalOffsetRandom), point[1]-(mapViewport.offsetWidth*horizontalOffsetRandom)];
 
     //checks if map edge is inside screen
     //adjusts map edge to stay on edge of screen
@@ -161,6 +172,14 @@ function setMapPosition(map, point, verticalOffset, horizontalOffset, randomLimi
 
     if (point[1] > map.offsetWidth-(mapViewport.offsetWidth*(1-horizontalOffset))){
         mapPosition[1] = map.offsetWidth-mapViewport.offsetWidth;
+    }
+
+    if (point[0] < mapViewport.offsetHeight*(1-verticalOffset)){
+        mapPosition[0] = 0;
+    }
+
+    if (point[1] < mapViewport.offsetWidth*(1-horizontalOffset)){
+        mapPosition[1] = 0;
     }
 
     mapContainer.style.top = -mapPosition[0] + 'px';
@@ -195,51 +214,61 @@ function setMapPosition(map, point, verticalOffset, horizontalOffset, randomLimi
 
 
 function randomMapLocation(map) {
-    randomPoint = getRandomPoint(map);
-    var boundingBox = convertRelativePointsLocation(srcBoundingPolygon, mapImage);
-    var inPoly = pointInPoly(boundingBox, randomPoint);
+    oldLocation = newLocation;
+    var relativePresetLocationPoints = convertRelativePointsLocation(buildingLocations, mapImage);
+    var relativeBoundingBoxPoints = convertRelativePointsLocation(srcBoundingPolygon, mapImage);
 
-    // console.log("in poly:", inPoly);
-    // console.log("random point:", randomPoint);
+    while (newLocation == oldLocation){
+        if (Math.random() <= predeterminedPercent){
+            newLocation = relativePresetLocationPoints[Math.floor(Math.random()*relativePresetLocationPoints.length)];
+        }
+        else{
+            newLocation = getRandomPoint(map);
+            var inPoly = pointInPoly(relativeBoundingBoxPoints, newLocation);
 
-    while(inPoly != true || inPoly == 0) {
-        randomPoint = getRandomPoint(map);
-        inPoly = pointInPoly(boundingBox, randomPoint);
+            // console.log("in poly:", inPoly);
+            // console.log("random point:", newLocation);
 
-        // console.log("in poly:", inPoly);
-        // console.log("random point:", randomPoint);
+            while(inPoly != true || inPoly == 0) {
+                newLocation = getRandomPoint(map);
+                inPoly = pointInPoly(relativeBoundingBoxPoints, newLocation);
+
+                // console.log("in poly:", inPoly);
+                // console.log("random point:", newLocation);
+            }
+        }
     }
 
-    marker.style.top = randomPoint[0]-(marker.offsetHeight*.5) + 'px';
-    marker.style.left = randomPoint[1]-(marker.offsetWidth*.5) + 'px';
+    marker.style.top = newLocation[0]-(marker.offsetHeight*.5) + 'px';
+    marker.style.left = newLocation[1]-(marker.offsetWidth*.5) + 'px';
 
-    // miniMapMarker.style.top = Math.floor(randomPoint[0]*(miniMapImage.offsetHeight/mapImage.offsetHeight))-(miniMapMarker.offsetHeight*.5) + 'px';
-    // miniMapMarker.style.left = Math.floor(randomPoint[1]*(miniMapImage.offsetWidth/mapImage.offsetWidth))-(miniMapMarker.offsetWidth*.5) + 'px';
+    // miniMapMarker.style.top = Math.floor(newLocation[0]*(miniMapImage.offsetHeight/mapImage.offsetHeight))-(miniMapMarker.offsetHeight*.5) + 'px';
+    // miniMapMarker.style.left = Math.floor(newLocation[1]*(miniMapImage.offsetWidth/mapImage.offsetWidth))-(miniMapMarker.offsetWidth*.5) + 'px';
 
-    mapPoint = [Math.abs(Math.floor(randomPoint[0])), Math.abs(Math.floor(randomPoint[1]))];
-    // var miniMapPoint = [Math.abs(Math.floor(randomPoint[0]*(miniMapImage.offsetHeight/mapImage.offsetHeight))), Math.abs(Math.floor(randomPoint[1]*(miniMapImage.offsetWidth/mapImage.offsetWidth)))];
+    mapPoint = [Math.floor(newLocation[0]), Math.floor(newLocation[1])];
+    // var miniMapPoint = [Math.abs(Math.floor(newLocation[0]*(miniMapImage.offsetHeight/mapImage.offsetHeight))), Math.abs(Math.floor(newLocation[1]*(miniMapImage.offsetWidth/mapImage.offsetWidth)))];
 
     // console.log("mapPoint:", mapPoint[0], mapPoint[1]);
     // console.log("miniMapPoint:", miniMapPoint[0], miniMapPoint[1])
 
-    setMapPosition(mapImage, mapPoint, .5, .5, 0);
+    setMapPosition(mapImage, mapPoint, .45, .45, .1);
     // setMiniMapPosition(miniMapImage, miniMapContainer, miniMapViewport, miniMapPoint, .45, .45, .05);
 
     // console.log("map size: " + mapWebDimensions);     
-    // console.log("marker position: " + randomPoint);   
+    // console.log("marker position: " + newLocation);   
     // console.log("map position: " + mapOffset);
     // console.log("screen width: " + viewport.offsetWidth + " -- screen height: " + viewport.offsetHeight);
     // console.log("-----------------------------------");
 }
 
 function adjustMapView() {
-    console.log("map view changed");
-    marker.style.top = randomPoint[0]-(marker.offsetHeight*.5) + 'px';
-    marker.style.left = randomPoint[1]-(marker.offsetWidth*.5) + 'px';
+    // console.log("map view changed");
+    marker.style.top = newLocation[0]-(marker.offsetHeight*.5) + 'px';
+    marker.style.left = newLocation[1]-(marker.offsetWidth*.5) + 'px';
 
-    mapPoint = [Math.abs(Math.floor(randomPoint[0])), Math.abs(Math.floor(randomPoint[1]))];
+    mapPoint = [Math.floor(newLocation[0]), Math.floor(newLocation[1])];
 
-    setMapPosition(mapImage, mapPoint, .5, .5, 0);
+    setMapPosition(mapImage, mapPoint, .45, .45, 1);
 }
 
 var count = 0;

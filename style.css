@@ -6,9 +6,9 @@
     --map: url("assets/Asset_Map_Fortnite.png");
     --minimap: url("assets/Asset_MiniMap_Fortnite.png");
 
-    --map-viewport-width: 100vw;
+    --map-viewport-width: 100%;
     --user-interface-width: 25vw;
-    --map-width: 180vw; 
+    --map-width: 5000px; 
     --mini-map-width: 1125px;
     --mobile-mini-map-width: 1275px;
 
@@ -240,7 +240,7 @@ body {
 @media ( max-width: 1200px){
     :root {
         --marker-width: 15vw;
-        --map-width: 200vw; 
+        --map-width: 2400px; 
         --user-interface-width: 50vw;
     }
 }
@@ -248,7 +248,7 @@ body {
 @media ( max-width: 700px){
     :root {
         --marker-width: 25vw;
-        --map-width: 300vw; 
+        --map-width: 2100vw; 
         --user-interface-width: 50vw;
     }
 
@@ -260,7 +260,7 @@ body {
 @media ( max-width: 550px){
     :root {
         --marker-width: 32vw;
-        --map-width: 550vw; 
+        --map-width: 1900vw; 
         --user-interface-width: 60vw;
     }
 
