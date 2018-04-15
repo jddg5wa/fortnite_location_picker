@@ -19,7 +19,7 @@ var srcBoundingPolygon = [[1345, 745], [2275, 678], [2968, 865], [3729, 1274],
 var srcBoundingBox = [[323, 455], [7796, 455], [7796, 7639], [323, 7639]];
 var webBoundingBoxPoints = [[0,0], [0,0]];
 
-var predeterminedPercent = .30;
+var predeterminedPercent = .27;
 var buildingLocations = [[986, 1575], [1650, 1220],[1350,2140], [1350,3200], 
                          [1800, 4200], [2350,2250], [4200,1825], [3600, 690], 
                          [3855, 1950], [5000, 1861], [5100, 2950], [5600, 2900], 

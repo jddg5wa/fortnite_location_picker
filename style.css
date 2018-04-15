@@ -7,7 +7,7 @@
     --minimap: url("assets/Asset_MiniMap_Fortnite.png");
 
     --map-viewport-width: 100%;
-    --user-interface-width: 25vw;
+    --user-interface-width: 35vw;
     --map-width: 5000px; 
     --mini-map-width: 1125px;
     --mobile-mini-map-width: 1275px;
@@ -196,12 +196,9 @@ body {
     float:right;
 } */
 
-#location_button{
-    float: right;
-    padding: 1vw;
-
+#location_button, #grid_button {
     color: var(--white);
-    font-size: 1.75vw;
+    font-size: 2vw;
     letter-spacing: .125vw;
 
     background-color: var(--black);
@@ -212,21 +209,17 @@ body {
     cursor: hand;
 }
 
+#location_button{
+    float: right;
+    padding: 1vw;
+}
+
 #grid_button{
     float: right;
     margin-bottom: 1vw;
     padding: 1vw;
 
-    color: var(--white);
-    font-size: 1.75vw;
-    letter-spacing: .125vw;
-
-    background-color: var(--black);
-    /* border: 5px solid var(--white); */
-    border-radius: 10px; 
-
-    /* margin-top: 1vw;  */
-    cursor: hand;
+    font-size: 1.5vw;
 }
 
 #location_button:hover, #grid_button:hover {
@@ -241,11 +234,15 @@ body {
     :root {
         --marker-width: 15vw;
         --map-width: 2400px; 
-        --user-interface-width: 50vw;
+        --user-interface-width: 60vw;
     }
 
-    #grid_button, #location_button {
-        font-size: 3vw;
+    #location_button {
+        font-size: 4vw;
+    }
+
+    #grid_button{
+        font-size: 3.25vw;
     }
 }
 
@@ -253,10 +250,14 @@ body {
     :root {
         --marker-width: 25vw;
         --map-width: 2100px; 
-        --user-interface-width: 60vw;
+        --user-interface-width: 80vw;
     }
 
-    #grid_button, #location_button {
+    #location_button {
+        font-size: 6vw;
+    }
+
+    #grid_button{
         font-size: 5vw;
     }
 }
@@ -265,10 +266,14 @@ body {
     :root {
         --marker-width: 32vw;
         --map-width: 1900px; 
-        --user-interface-width: 60vw;
+        --user-interface-width: 80vw;
     }
 
-    #grid_button, #location_button {
+    #location_button {
+        font-size: 6vw;
+    }
+
+    #grid_button{
         font-size: 5vw;
     }
 }
