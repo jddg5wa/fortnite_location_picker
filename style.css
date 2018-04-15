@@ -243,24 +243,28 @@ body {
         --map-width: 2400px; 
         --user-interface-width: 50vw;
     }
-}
-
-@media ( max-width: 700px){
-    :root {
-        --marker-width: 25vw;
-        --map-width: 2100vw; 
-        --user-interface-width: 50vw;
-    }
 
     #grid_button, #location_button {
         font-size: 3vw;
     }
 }
 
+@media ( max-width: 700px){
+    :root {
+        --marker-width: 25vw;
+        --map-width: 2100px; 
+        --user-interface-width: 60vw;
+    }
+
+    #grid_button, #location_button {
+        font-size: 5vw;
+    }
+}
+
 @media ( max-width: 550px){
     :root {
         --marker-width: 32vw;
-        --map-width: 1900vw; 
+        --map-width: 1900px; 
         --user-interface-width: 60vw;
     }
 
