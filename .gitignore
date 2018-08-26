@@ -3,4 +3,7 @@
 *.db
 reference*.png
 reference*.jpg
+snapshot*.gif
+snapshot*.png
+snapshot*.jpg
 assets/testui/
