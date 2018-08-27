@@ -36,6 +36,37 @@ var buildingLocations = [[986, 1575], [1650, 1220],[1350,2140], [1350,3200],
 var oldLocation;
 var newLocation;
 
+console.log("StartedLoading");
+
+window.onload = function load() {
+    body = document.getElementsByTagName("body")[0];
+    mapContainer = document.getElementById("map_container");
+    mapImage = document.getElementById("map_image");
+    mapViewport = document.getElementById("map_viewport");
+    mapTopBar = document.getElementById("map_topbar");
+    mapSideBar = document.getElementById("map_sidebar");
+    mapGrid = document.getElementById("map_grid");
+    console.log("Loaded");
+
+    // miniMapViewport = document.getElementById("mini_map_viewport");
+    // miniMapContainer = document.getElementById("mini_map_container");
+    // miniMap = document.getElementById("mini_map");
+    // miniMapImage = document.getElementById("mini_map_image");
+    // miniMapMarker = document.getElementById("mini_map_marker");
+
+    // miniMapTopbar = document.getElementById("mini_map_topbar");
+    // miniMapSidebar = document.getElementById("mini_map_sidebar");
+
+    mapContainer.style.height = mapImage.offsetHeight;
+    mapContainer.style.width = mapImage.offsetWidth;
+
+    // console.log(convertRelativePointsLocation(srcBoundingPolygon, mapImage))
+
+    marker = document.getElementById("map_marker");
+    // addMouseListeners();
+    randomMapLocation(mapImage);
+};
+
 //converts [x,y] points from one image to relatively fit an image of another size. 
 //points = array of arrays containing both [x, y] coordinates
 //element =  image object
@@ -309,33 +340,4 @@ function toggleGrid(){
 //         this.removeEventListener("mousemove", mouseMoveFunction);
 //     });
 // }
-
-
-window.onload = function load() {
-    body = document.getElementsByTagName("body")[0];
-    mapContainer = document.getElementById("map_container");
-    mapImage = document.getElementById("map_image");
-    mapViewport = document.getElementById("map_viewport");
-    mapTopBar = document.getElementById("map_topbar");
-    mapSideBar = document.getElementById("map_sidebar");
-    mapGrid = document.getElementById("map_grid");
-
-    // miniMapViewport = document.getElementById("mini_map_viewport");
-    // miniMapContainer = document.getElementById("mini_map_container");
-    // miniMap = document.getElementById("mini_map");
-    // miniMapImage = document.getElementById("mini_map_image");
-    // miniMapMarker = document.getElementById("mini_map_marker");
-
-    // miniMapTopbar = document.getElementById("mini_map_topbar");
-    // miniMapSidebar = document.getElementById("mini_map_sidebar");
-
-    mapContainer.style.height = mapImage.offsetHeight;
-    mapContainer.style.width = mapImage.offsetWidth;
-
-    // console.log(convertRelativePointsLocation(srcBoundingPolygon, mapImage))
-
-    marker = document.getElementById("map_marker");
-    // addMouseListeners();
-    randomMapLocation(mapImage);
-};
 
