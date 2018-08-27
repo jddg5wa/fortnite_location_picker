@@ -1,3 +1,4 @@
+var body;
 var mapViewport;
 var mapContainer;
 var marker;
@@ -79,6 +80,7 @@ function getRandomWholeNumber(min,max){
     return randomNumber;
 }
 
+//checks if an (x,y) pair is contained within the shape of an array of (x,y) pairs.
 function pointInPoly(polygon, point)
 {
   var nvert = polygon.length;
@@ -211,8 +213,6 @@ function setMapPosition(map, point, verticalOffset, horizontalOffset, randomLimi
 //     miniMapSidebar.style.top = -mapPosition[0] + 'px';
 // }
 
-
-
 function randomMapLocation(map) {
     oldLocation = newLocation;
     var relativePresetLocationPoints = convertRelativePointsLocation(buildingLocations, mapImage);
@@ -290,7 +290,29 @@ function toggleGrid(){
     console.log(count);
 }
 
+//------------------------------------
+//dragable map functionality
+
+// function mouseMoveFunction(e){
+//     startMouseX = event.clientX;
+//     startMouseY = event.clientY;
+//     console.log("START X: " + startMouseX + ", Y: " + startMouseY);
+// };
+
+// function addMouseListeners(){
+//     body.addEventListener("mousedown", function(e){
+//         mouseDownFunction(e); 
+//         this.addEventListener("mousemove", mouseMoveFunction);
+//     });
+
+//     body.addEventListener("mouseup", function(e){
+//         this.removeEventListener("mousemove", mouseMoveFunction);
+//     });
+// }
+
+
 window.onload = function load() {
+    body = document.getElementsByTagName("body")[0];
     mapContainer = document.getElementById("map_container");
     mapImage = document.getElementById("map_image");
     mapViewport = document.getElementById("map_viewport");
@@ -313,5 +335,7 @@ window.onload = function load() {
     // console.log(convertRelativePointsLocation(srcBoundingPolygon, mapImage))
 
     marker = document.getElementById("map_marker");
+    // addMouseListeners();
     randomMapLocation(mapImage);
 };
+
