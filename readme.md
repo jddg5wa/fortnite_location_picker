@@ -5,3 +5,4 @@ To use this webapp visit http://www.joegutman.com/fortniterandomlocation/ or clo
 
 Known Bugs: 
 1. Sometimes it will get a location in the ocean
+2. Slow/blurry on mobile
